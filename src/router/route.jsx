@@ -8,6 +8,7 @@ import SignUp from "../pages/SignUp";
 import Dashboard from "../pages/Dashboard";
 import Layout from "../Layout";
 import ProtectedRoute from "../components/ProtectedRoute";
+import Transaction from "../pages/Transaction";
 
 const router = createBrowserRouter([
     {
@@ -17,7 +18,8 @@ const router = createBrowserRouter([
         {index:true, element:<App/>},
         {path:'/signin', element:<SignIn/>},
         {path:'/signup',element:<SignUp/>},
-        {path:"/dashboard",element:<ProtectedRoute><Dashboard/></ProtectedRoute>}
+        {path:"/dashboard",element:<ProtectedRoute><Dashboard/></ProtectedRoute>},
+        {path:"/transfer/:id/:email",element:<ProtectedRoute><Transaction/></ProtectedRoute>}
       ]
     },
 ]);

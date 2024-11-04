@@ -1,8 +1,12 @@
 import { User } from 'lucide-react';
+import { useRecoilValueLoadable } from 'recoil';
+import { userAtom } from '../../utils/atom';
+import Loading from './Loading';
+import { Link } from 'react-router-dom';
 
 
 
-function UserCard({ name, email, onSendMoney }) {
+function UserCard({ name, email, id }) {
   return (
     <div className="flex items-center justify-between p-4 bg-white rounded-lg shadow-sm hover:shadow-md transition-shadow">
       <div className="flex items-center space-x-4">
@@ -14,32 +18,29 @@ function UserCard({ name, email, onSendMoney }) {
           <p className="text-sm text-gray-500">{email}</p>
         </div>
       </div>
-      <button
-        onClick={onSendMoney}
+      <Link
+        to={`/transfer/${id}/${email}`}
         className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
       >
         Send Money
-      </button>
+      </Link>
     </div>
   );
 }
 
 function UserList() {
-  const users = [
-    { id: 1, name: "Alex Thompson", email: "alex@example.com" },
-    { id: 2, name: "Sarah Wilson", email: "sarah@example.com" },
-    { id: 3, name: "Michael Chen", email: "michael@example.com" },
-  ];
-
+  const allUser = useRecoilValueLoadable(userAtom);
+  if(allUser.state === 'loading')  return <Loading/>
+  console.log(allUser.contents)
   return (
     <div className="space-y-4">
       <h2 className="text-2xl font-bold text-gray-900 mb-6">Send Money to Friends</h2>
-      {users.map((user) => (
+      {allUser.contents.map((user) => (
         <UserCard
-          key={user.id}
-          name={user.name}
+          key={user._id}
+          name={user.username}
           email={user.email}
-          onSendMoney={() => alert(`Send money to ${user.name}`)}
+          id={user._id}
         />
       ))}
     </div>
