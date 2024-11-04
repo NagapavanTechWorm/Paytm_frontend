@@ -1,14 +1,19 @@
+import { useRecoilState, useRecoilValue } from 'recoil';
 import UserList from '../components/UserList';
 import { CreditCard, Send, Wallet } from 'lucide-react';
+import { authAtom } from '../../utils/atom';
 
 function Dashboard() {
+  const [user,setUser] = useRecoilState(authAtom);
+  console.log(user);
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12">
+        <h1 className="py-4 px-2 text-3xl font-semibold"><span className="text-blue-600">Hello</span>, {user.user.username}</h1>
         {/* Balance Card */}
         <div className="bg-gradient-to-r from-blue-600 to-blue-700 rounded-lg shadow-lg p-6 text-white mb-8">
           <h2 className="text-xl font-semibold mb-2">Available Balance</h2>
-          <div className="text-4xl font-bold">₹24,500.00</div>
+          <div className="text-4xl font-bold">₹ {user.user.balance}</div>
           <div className="mt-4 flex space-x-4">
             <button className="flex items-center space-x-2 bg-white text-blue-600 px-4 py-2 rounded-lg hover:bg-blue-50">
               <Send className="h-5 w-5" />

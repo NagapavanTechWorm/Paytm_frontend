@@ -11,15 +11,14 @@ function SignIn() {
   const navigate = useNavigate();
 
   const handleSubmit = async(e) => {
-    console.log(email,password);
     e.preventDefault();
     console.log('Sign in:', { email, password });
     try{
         const response = await axios.post(`${import.meta.env.VITE_API_URL}/user/signin`,{email,password});
-        console.log(response.data)
         if(response.data){
             toast.success("Signin successfully")
-            setInterval(()=>navigate('/dashboard'),3000)
+            localStorage.setItem('token', response.data.token);
+            navigate('/dashboard')
         }
     }catch(error){
         const err = error.response.data.message || "something went wrong"
