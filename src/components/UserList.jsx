@@ -15,7 +15,6 @@ function UserCard({ name, email, id }) {
         </div>
         <div>
           <h3 className="font-medium text-gray-900">{name}</h3>
-          <p className="text-sm text-gray-500">{email}</p>
         </div>
       </div>
       <Link
